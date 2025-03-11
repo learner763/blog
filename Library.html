@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body{
+            margin: 0;
+        }
+        @media (max-width :550px){
+            
+            .c label{
+                font-size: 15px;
+            }
+        }
+        .a{
+
+            background-color: #212232;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            flex-wrap: wrap;
+            bottom: 0;
+            position: fixed;
+        }     
+        .a i{
+            margin: 10px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        .b{
+            position: fixed;
+            top: 0;
+            background-color: black;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            flex-wrap: wrap;
+            color: white;
+            font-size: 30px;
+        }
+        .b label{
+            margin: 5px;
+            font-weight: bolder;
+            font-style: italic;
+        }
+        .c{
+            display: flex;
+            flex-direction: row;
+            font-size: 20px;
+            color: white;
+            justify-content: space-around;
+            overflow-x: scroll;
+            scrollbar-width: none;
+            background-color: #212232;
+            width: 100%;
+            margin-top: 44px;
+            position: fixed;
+        }
+        .c label{
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }  
+    </style>
+</head>
+<body>
+    <div class="a">
+        <i class="fas fa-home"></i>
+        <i class="fas fa-search"></i>
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-people-arrows"></i>
+
+    </div>
+    <div class="b">
+        <label id="u">@</label>
+        <label ><i class="fa fa-book-reader"></i>ThoughtStream</label>
+    </div>
+    <div class="c">
+        <label ><i class="fas fa-face-smile"></i>Profile</label>
+        <label ><i class="fas fa-info-circle"></i>Edit Info</label>
+        <label ><i class="fas fa-list"></i>Your Stories</label>
+        <label ><i class="fas fa-bookmark"></i>Library</label>
+        <label ><i class="fas fa-gear"></i>Settings</label>
+        <label ><i class="fas fa-pen"></i>Compose</label>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded",function()
+    {
+        let u=document.getElementById("u")
+        u.innerHTML+=JSON.parse(localStorage.getItem("Email"))
+        let c_l=document.querySelectorAll(".c label")
+        let a_i=document.querySelectorAll(".a i")
+        if(parseInt(JSON.parse(localStorage.getItem("i")))<7)
+        {
+            c_l[parseInt(JSON.parse(localStorage.getItem("i")))].style.color="#212232"
+            c_l[parseInt(JSON.parse(localStorage.getItem("i")))].style.backgroundColor="white"
+
+        }
+        else{
+            a_i[parseInt(JSON.parse(localStorage.getItem("i")))-7].style.color="black"
+        }
+        
+        let pages=["Profile","Info","Stories","Library","Settings","Write","Logout"]
+        let pages_=["Home","Search","Notify","People"]
+        for(let i=0;i<c_l.length;i++)
+        {
+            c_l[i].addEventListener("click",function()
+            {
+                localStorage.setItem("i",i)
+                window.location.href=`/${pages[i]}`
+            })
+        }
+        for(let i=0;i<a_i.length;i++)
+        {
+            a_i[i].addEventListener("click",function()
+            {
+                localStorage.setItem("i",i+pages.length)
+                window.location.href=`/${pages_[i]}`
+            })
+        }
+    })
+    </script>
+</body>
+</html>
