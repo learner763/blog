@@ -5,13 +5,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
+const port = 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const usersFilePath = path.join(__dirname, 'users.json');
 const signedInUsersFilePath = path.join(__dirname, 'signedInUsers.json');
 
-// Read signed-in users
+// Helper function to read signed-in users from file
 const readSignedInUsers = () => {
   if (fs.existsSync(signedInUsersFilePath)) {
     let data = fs.readFileSync(signedInUsersFilePath, 'utf8');
@@ -20,7 +21,7 @@ const readSignedInUsers = () => {
   return new Set();
 };
 
-// Write signed-in users
+// Helper function to write signed-in users to file
 const writeSignedInUsers = (signedInUsers) => {
   fs.writeFileSync(signedInUsersFilePath, JSON.stringify(Array.from(signedInUsers), null, 2));
 };
@@ -28,62 +29,97 @@ const writeSignedInUsers = (signedInUsers) => {
 let signedInUsers = readSignedInUsers();
 
 app.use(bodyParser.json());
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname)));
 
-// Serve pages
-const pages = ['Info', 'Profile', 'Settings', 'Logout', 'Home', 'Library', 'Stories', 'Write', 'Search', 'People', 'Notify'];
 
-pages.forEach(page => {
-  app.get(`/${page}`, (req, res) => {
-    res.sendFile(path.join(__dirname, `${page}.html`));
-  });
+// Serve the login page
+
+app.get('/Info', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Info.html'));
+});
+app.get('/Profile', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Profile.html'));
+});
+app.get('/Settings', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Settings.html'));
 });
 
-// Handle login
+app.get('/Logout', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Logout.html'));
+});
+app.get('/Home', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Home.html'));
+});
+app.get('/Library', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Library.html'));
+});
+app.get('/Stories', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Stories.html'));
+});
+app.get('/Write', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Write.html'));
+});
+app.get('/Search', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Search.html'));
+})
+app.get('/People', (req, res) => {
+  res.sendFile(path.join(__dirname,  'People.html'));
+})
+;app.get('/Notify', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Notify.html'));
+})
+
+// Handle login requests
 app.post('/index', (req, res) => {
   const { overall_data } = req.body;
-  let user = overall_data.Username;
-  let c = 0;
-  signedInUsers = Array.from(signedInUsers);
-
-  for (let i = 0; i < signedInUsers.length; i++) {
-    if (signedInUsers[i][0].Username === user) {
-      c = 1;
+  // Simulate a simple authentication process
+  {
+    let user=overall_data.Username
+    let c=0
+    signedInUsers=Array.from(signedInUsers)
+    for(let i=0;i<signedInUsers.length;i++)
+    {
+      if(signedInUsers[i][0].Username==user )
+      {
+        c=1
+      }
     }
+    if(c==0){
+      signedInUsers.push([overall_data]);
+    }
+    signedInUsers=new Set(signedInUsers);
+    writeSignedInUsers(signedInUsers); 
+    res.json({ success: true });
   }
-
-  if (c === 0) {
-    signedInUsers.push([overall_data]);
-  }
-
-  signedInUsers = new Set(signedInUsers);
-  writeSignedInUsers(signedInUsers);
-  res.json({ success: true });
 });
 
 app.post('/Info', (req, res) => {
-  let { overall_data, username } = req.body;
-  signedInUsers = Array.from(signedInUsers);
+  let  { overall_data,username,password } = req.body;
 
-  for (let i = 0; i < signedInUsers.length; i++) {
-    if (signedInUsers[i][0].Username === username) {
-      signedInUsers[i][1] = overall_data;
+  // Simulate a simple authentication process
+  {
+    signedInUsers=Array.from(signedInUsers)
+
+    for(let i=0;i<signedInUsers.length;i++)
+    {
+      if(signedInUsers[i][0].Username==username)
+      {
+        signedInUsers[i][1]=overall_data
+      }
     }
+    signedInUsers=new Set(signedInUsers);
+    writeSignedInUsers(signedInUsers); // Save the updated list to the file
+    res.json({ success: true });
   }
-
-  signedInUsers = new Set(signedInUsers);
-  writeSignedInUsers(signedInUsers);
-  res.json({ success: true });
 });
-
-// API to get signed-in users
+// Get all signed-in users
 app.get('/signed-in-users', (req, res) => {
   res.json(Array.from(signedInUsers));
 });
 
-// Serve index.html for root
+// Serve the main page
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname,  'index.html'));
 });
 
 // Handle user management
@@ -116,5 +152,6 @@ app.post('/users', (req, res) => {
   });
 });
 
-// Export for Vercel (NO `app.listen()`)
-export default app;
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
