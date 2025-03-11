@@ -217,7 +217,7 @@
     localStorage.setItem("Email",JSON.stringify(i_1))
     localStorage.setItem("Password",JSON.stringify(i_2))
     let overall_data={Username:`${i_1}`,Password:`${i_2}`}
-    fetch('/index', {
+    fetch('/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
