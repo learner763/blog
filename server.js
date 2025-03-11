@@ -1,157 +1,256 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const app = express();
-const port = 3000;
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const usersFilePath = path.join(__dirname, 'users.json');
-const signedInUsersFilePath = path.join(__dirname, 'signedInUsers.json');
-
-// Helper function to read signed-in users from file
-const readSignedInUsers = () => {
-  if (fs.existsSync(signedInUsersFilePath)) {
-    let data = fs.readFileSync(signedInUsersFilePath, 'utf8');
-    return new Set(JSON.parse(data));
-  }
-  return new Set();
-};
-
-// Helper function to write signed-in users to file
-const writeSignedInUsers = (signedInUsers) => {
-  fs.writeFileSync(signedInUsersFilePath, JSON.stringify(Array.from(signedInUsers), null, 2));
-};
-
-let signedInUsers = readSignedInUsers();
-
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname)));
-
-
-// Serve the login page
-
-app.get('/Info', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Info.html'));
-});
-app.get('/Profile', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Profile.html'));
-});
-app.get('/Settings', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Settings.html'));
-});
-
-app.get('/Logout', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Logout.html'));
-});
-app.get('/Home', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Home.html'));
-});
-app.get('/Library', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Library.html'));
-});
-app.get('/Stories', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Stories.html'));
-});
-app.get('/Write', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Write.html'));
-});
-app.get('/Search', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Search.html'));
-})
-app.get('/People', (req, res) => {
-  res.sendFile(path.join(__dirname,  'People.html'));
-})
-;app.get('/Notify', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Notify.html'));
-})
-
-// Handle login requests
-app.post('/', (req, res) => {
-  const { overall_data } = req.body;
-  // Simulate a simple authentication process
-  {
-    let user=overall_data.Username
-    let c=0
-    signedInUsers=Array.from(signedInUsers)
-    for(let i=0;i<signedInUsers.length;i++)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body,html{
+      margin: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .a{
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      background-color: #212232;
+      color: white;
+    }
+    .a label,button,input{
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+    <div class="a">
+      <label style="font-weight: bolder; align-self: center;">ThoughtStream</label>
+      <label style=" align-self: first baseline;">Username*</label>
+      <input id="i1" type="text">
+      <label style=" align-self: first baseline;">Password*</label>
+      <input id="i2" type="text">
+      <button id="b1" style="border: none;cursor: pointer; background-color: white;color: #212232; justify-content: center;align-self: center; width: auto;">LogIn</button>
+      <button id="b2" style="border: none;cursor: pointer; background-color: white;color: #212232; justify-content: center;align-self: center; width: auto;display: none;">Find Password</button>
+      <label id="fp" style="display: none;align-self: center;"></label>
+      <label id="ut" style="display: none;align-self: center;"></label>
+      <label id="f" style="cursor: pointer; align-self: center;">Forgot Password?</label>
+      <label id="m2" style="align-self: center;">Don't have an account?<b id="m1" style="cursor: pointer;">Sign Up</b></label>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded",function()
     {
-      if(signedInUsers[i][0].Username==user )
-      {
-        c=1
-      }
-    }
-    if(c==0){
-      signedInUsers.push([overall_data]);
-    }
-    signedInUsers=new Set(signedInUsers);
-    writeSignedInUsers(signedInUsers); 
-    res.json({ success: true });
-  }
-});
-
-app.post('/Info', (req, res) => {
-  let  { overall_data,username,password } = req.body;
-
-  // Simulate a simple authentication process
-  {
-    signedInUsers=Array.from(signedInUsers)
-
-    for(let i=0;i<signedInUsers.length;i++)
+      let m1=document.getElementById("m1")
+      let fp=document.getElementById("fp")
+      let ut=document.getElementById("ut")
+      let b1=document.getElementById("b1")
+      let b2=document.getElementById("b2")
+      let m2=document.getElementById("m2")
+      let i1=document.getElementById("i1")
+      let i2=document.getElementById("i2")
+      let f=document.getElementById("f")
+      let a_l=document.querySelectorAll(".a label")
+      let clicks=0
+      m1.addEventListener("click",function()
     {
-      if(signedInUsers[i][0].Username==username)
+      clicks+=1
+      if(clicks%2==1)
+    {
+      ut.style.display="none"
+      f.style.display="none"
+      fp.style.display="none"
+      m2.childNodes[0].textContent="Already have an account?"
+      m1.textContent="LogIn"
+      b1.innerText="Create Account"
+      f.style.display="none"
+      b1.style.display="block"
+      b2.style.display="none"
+      i2.style.display="block"
+      a_l[1].innerHTML="Username*"
+      a_l[1].style.display="block"
+      a_l[2].innerHTML="Password*"
+      a_l[2].style.display="block"
+
+    }
+    else{
+      fp.style.display="none"
+      ut.style.display="none"
+      a_l[1].innerHTML="Username*"
+      a_l[1].style.display="block"
+      a_l[2].innerHTML="Password*"
+      a_l[2].style.display="block"
+      f.style.display="block"
+      m2.childNodes[0].textContent="Don't have an account?"
+      m1.textContent="Sign Up"
+      b1.innerText="LogIn"
+      f.style.display="block"
+      b1.style.display="block"
+      b2.style.display="none"
+      i2.style.display="block"
+    }
+    })
+    
+    f.addEventListener("click",function()
+    {
+      fp.style.display="block"
+      f.style.display="none"
+      i2.style.display="none"
+      ut.style.display="none"
+      for(let i=0;i<a_l.length;i++)
+    {
+
+      if(a_l[i].innerHTML=="Username*"){a_l[i].innerHTML="Enter username associated with your account."}
+      if(a_l[i].innerHTML=="Password*"){a_l[i].style.display="none"}
+      b1.style.display="none"
+      b2.style.display="block"
+      m1.innerHTML=" Login Page"
+      m2.childNodes[0].textContent="Back to"
+
+    }
+    })
+    b2.addEventListener("click",function()
+    {
+      let username__=i1.value
+      fetch('/signed-in-users')
+      .then(response => response.json())
+      .then(users => {
+      let a=0
+      for(let i=0;i<users.length;i++)
       {
-        signedInUsers[i][1]=overall_data
+        if(users[i][0].Username==username__)
+        {
+          a=1
+          fp.textContent="Your password is " +users[i][0].Password
+          window.location.href = '/Home'; 
+
+        }
       }
+      if(a==0){fp.textContent="No account exists with such username!"}
+    })
+      .catch(error => console.error('Error fetching signed-in users:', error));
+    })
+    
+
+    b1.addEventListener("click",function()
+  {
+    let aa=0
+    if(b1.innerHTML=="Create Account")
+    {
+      fetch('/signed-in-users')
+      .then(response => response.json())
+      .then(users => {
+      for(let i=0;i<users.length;i++)
+      {
+        if(users[i][0].Username==i1.value)
+        {
+          aa=1
+          ut.style.display="block"
+          ut.innerHTML=`Username ${i1.value} =${users[i][0].Username}`
+        }
+      }
+    })
+    .catch(error => console.error('Error fetching signed-in users:', error));
+
+    if(aa==0)
+    {
+    if(b1.innerHTML=="Create Account")
+    {
+    if(i1.value!="" && i2.value!="" && aa==0 )
+    {
+    ut.style.display="none"
+    i_1=i1.value,i_2=i2.value
+    localStorage.setItem("Email",JSON.stringify(i_1))
+    localStorage.setItem("Password",JSON.stringify(i_2))
+    let overall_data={Username:`${i_1}`,Password:`${i_2}`}
+    fetch('/index', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+        },
+        
+        body: JSON.stringify( {overall_data} ),
+      
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = '/Home'; 
+        } else {
+          alert('Login failed');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    } 
     }
-    signedInUsers=new Set(signedInUsers);
-    writeSignedInUsers(signedInUsers); // Save the updated list to the file
-    res.json({ success: true });
+    }
+
+    
+    }
+    if(b1.innerHTML=="LogIn")
+    {
+      let aaa=0
+      fetch('/signed-in-users')
+      .then(response => response.json())
+      .then(users => {
+      for(let i=0;i<users.length;i++)
+      {
+        if(users[i][0].Username==i1.value && users[i][0].Password==i2.value)
+        {
+          aaa=1
+        }
+      }
+      if(aaa==0){
+            ut.innerHTML="Incorrect username or password!"
+            ut.style.display="block"
+            }
+          })
+          .catch(error => console.error('Error fetching signed-in users:', error));
+  if(aaa==1)
+  {
+    
+  if(b1.innerHTML=="LogIn")
+  {
+  if(i1.value!="" && i2.value!="" && aaa==1 )
+  {
+
+    i_1=i1.value,i_2=i2.value
+    localStorage.setItem("Email",JSON.stringify(i_1))
+    localStorage.setItem("Password",JSON.stringify(i_2))
+    let overall_data={Username:`${i_1}`,Password:`${i_2}`}
+    alert("Login Successful")
+
+    fetch('/index', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+        },
+        
+        body: JSON.stringify( {overall_data} ),
+      
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.href = '/Home'; 
+        } else {
+          alert('Login failed');
+        }
+      })
+      .catch(error => console.error('Error:', error));
   }
-});
-// Get all signed-in users
-app.get('/signed-in-users', (req, res) => {
-  res.json(Array.from(signedInUsers));
-});
-
-// Serve the main page
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname,  'index.html'));
-});
-
-// Handle user management
-app.get('/users', (req, res) => {
-  fs.readFile(usersFilePath, 'utf8', (err, data) => {
-    if (err) {
-      res.status(500).send('Error reading users file');
-      return;
+  }
+  }
+      
+    
     }
-    res.json(JSON.parse(data));
-  });
-});
 
-app.post('/users', (req, res) => {
-  const newUser = req.body;
-  fs.readFile(usersFilePath, 'utf8', (err, data) => {
-    if (err) {
-      res.status(500).send('Error reading users file');
-      return;
-    }
-    const users = JSON.parse(data);
-    users.push(newUser);
-    fs.writeFile(usersFilePath, JSON.stringify(users, null, 2), (err) => {
-      if (err) {
-        res.status(500).send('Error writing to users file');
-        return;
-      }
-      res.status(201).send(newUser);
-    });
-  });
-});
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
+    
+  
+  })
+    })
+    </script>
+</body> 
+</html>
