@@ -151,6 +151,8 @@
           ut.innerHTML=`Username ${i1.value} =${users[i][0].Username}`
         }
       }
+    })
+    .catch(error => console.error('Error fetching signed-in users:', error));
 
     if(aa==0)
     {
@@ -185,8 +187,7 @@
     }
     }
 
-    })
-      .catch(error => console.error('Error fetching signed-in users:', error));
+    
     }
     if(b1.innerHTML=="LogIn")
     {
@@ -205,6 +206,8 @@
             ut.innerHTML="Incorrect username or password!"
             ut.style.display="block"
             }
+          })
+          .catch(error => console.error('Error fetching signed-in users:', error));
   if(aaa==1)
   {
     
@@ -219,7 +222,7 @@
     let overall_data={Username:`${i_1}`,Password:`${i_2}`}
     alert("Login Successful")
 
-    fetch('/', {
+    fetch('/index', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -241,8 +244,7 @@
   }
   }
       
-    })
-      .catch(error => console.error('Error fetching signed-in users:', error));
+    
     }
 
     
