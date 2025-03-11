@@ -210,7 +210,8 @@
           .catch(error => console.error('Error fetching signed-in users:', error));
   if(aaa==1)
   {
-    
+    alert("Login Successful")
+
   if(b1.innerHTML=="LogIn")
   {
   if(i1.value!="" && i2.value!="" && aaa==1 )
@@ -220,7 +221,6 @@
     localStorage.setItem("Email",JSON.stringify(i_1))
     localStorage.setItem("Password",JSON.stringify(i_2))
     let overall_data={Username:`${i_1}`,Password:`${i_2}`}
-    alert("Login Successful")
 
     fetch('/index', {
           method: 'POST',
