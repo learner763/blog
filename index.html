@@ -200,6 +200,8 @@
         if(users[i][0].Username==i1.value && users[i][0].Password==i2.value)
         {
           aaa=1
+          alert("Login Successful")
+
         }
       }
       if(aaa==0){
@@ -210,7 +212,6 @@
           .catch(error => console.error('Error fetching signed-in users:', error));
   if(aaa==1)
   {
-    alert("Login Successful")
 
   if(b1.innerHTML=="LogIn")
   {
