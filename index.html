@@ -41,219 +41,175 @@
       <label id="m2" style="align-self: center;">Don't have an account?<b id="m1" style="cursor: pointer;">Sign Up</b></label>
     </div>
     <script>
-      document.addEventListener("DOMContentLoaded",function()
-    {
-      let m1=document.getElementById("m1")
-      let fp=document.getElementById("fp")
-      let ut=document.getElementById("ut")
-      let b1=document.getElementById("b1")
-      let b2=document.getElementById("b2")
-      let m2=document.getElementById("m2")
-      let i1=document.getElementById("i1")
-      let i2=document.getElementById("i2")
-      let f=document.getElementById("f")
-      let a_l=document.querySelectorAll(".a label")
-      let clicks=0
-      m1.addEventListener("click",function()
-    {
-      clicks+=1
-      if(clicks%2==1)
-    {
-      ut.style.display="none"
-      f.style.display="none"
-      fp.style.display="none"
-      m2.childNodes[0].textContent="Already have an account?"
-      m1.textContent="LogIn"
-      b1.innerText="Create Account"
-      f.style.display="none"
-      b1.style.display="block"
-      b2.style.display="none"
-      i2.style.display="block"
-      a_l[1].innerHTML="Username*"
-      a_l[1].style.display="block"
-      a_l[2].innerHTML="Password*"
-      a_l[2].style.display="block"
-
-    }
-    else{
-      fp.style.display="none"
-      ut.style.display="none"
-      a_l[1].innerHTML="Username*"
-      a_l[1].style.display="block"
-      a_l[2].innerHTML="Password*"
-      a_l[2].style.display="block"
-      f.style.display="block"
-      m2.childNodes[0].textContent="Don't have an account?"
-      m1.textContent="Sign Up"
-      b1.innerText="LogIn"
-      f.style.display="block"
-      b1.style.display="block"
-      b2.style.display="none"
-      i2.style.display="block"
-    }
-    })
+      document.addEventListener("DOMContentLoaded", function() {
+        let m1 = document.getElementById("m1");
+        let fp = document.getElementById("fp");
+        let ut = document.getElementById("ut");
+        let b1 = document.getElementById("b1");
+        let b2 = document.getElementById("b2");
+        let m2 = document.getElementById("m2");
+        let i1 = document.getElementById("i1");
+        let i2 = document.getElementById("i2");
+        let f = document.getElementById("f");
+        let a_l = document.querySelectorAll(".a label");
+        let clicks = 0;
     
-    f.addEventListener("click",function()
-    {
-      fp.style.display="block"
-      f.style.display="none"
-      i2.style.display="none"
-      ut.style.display="none"
-      for(let i=0;i<a_l.length;i++)
-    {
-
-      if(a_l[i].innerHTML=="Username*"){a_l[i].innerHTML="Enter username associated with your account."}
-      if(a_l[i].innerHTML=="Password*"){a_l[i].style.display="none"}
-      b1.style.display="none"
-      b2.style.display="block"
-      m1.innerHTML=" Login Page"
-      m2.childNodes[0].textContent="Back to"
-
-    }
-    })
-    b2.addEventListener("click",function()
-    {
-      let username__=i1.value
-      fetch('/signed-in-users')
-      .then(response => response.json())
-      .then(users => {
-      let a=0
-      for(let i=0;i<users.length;i++)
-      {
-        if(users[i][0].Username==username__)
-        {
-          a=1
-          fp.textContent="Your password is " +users[i][0].Password
-          window.location.href = '/Home'; 
-
-        }
-      }
-      if(a==0){fp.textContent="No account exists with such username!"}
-    })
-      .catch(error => console.error('Error fetching signed-in users:', error));
-    })
+        m1.addEventListener("click", function() {
+          clicks += 1;
+          if (clicks % 2 == 1) {
+            ut.style.display = "none";
+            f.style.display = "none";
+            fp.style.display = "none";
+            m2.childNodes[0].textContent = "Already have an account?";
+            m1.textContent = "LogIn";
+            b1.innerText = "Create Account";
+            f.style.display = "none";
+            b1.style.display = "block";
+            b2.style.display = "none";
+            i2.style.display = "block";
+            a_l[1].innerHTML = "Username*";
+            a_l[1].style.display = "block";
+            a_l[2].innerHTML = "Password*";
+            a_l[2].style.display = "block";
+          } else {
+            fp.style.display = "none";
+            ut.style.display = "none";
+            a_l[1].innerHTML = "Username*";
+            a_l[1].style.display = "block";
+            a_l[2].innerHTML = "Password*";
+            a_l[2].style.display = "block";
+            f.style.display = "block";
+            m2.childNodes[0].textContent = "Don't have an account?";
+            m1.textContent = "Sign Up";
+            b1.innerText = "LogIn";
+            f.style.display = "block";
+            b1.style.display = "block";
+            b2.style.display = "none";
+            i2.style.display = "block";
+          }
+        });
     
-
-    b1.addEventListener("click",function()
-  {
-    let aa=0
-    if(b1.innerHTML=="Create Account")
-    {
-      fetch('/signed-in-users')
-      .then(response => response.json())
-      .then(users => {
-      for(let i=0;i<users.length;i++)
-      {
-        if(users[i][0].Username==i1.value)
-        {
-          aa=1
-          ut.style.display="block"
-          ut.innerHTML=`Username ${i1.value} =${users[i][0].Username}`
-        }
-      }
-   
-
-    if(aa==0)
-    {
-    if(b1.innerHTML=="Create Account")
-    {
-    if(i1.value!="" && i2.value!="" && aa==0 )
-    {
-    ut.style.display="none"
-    i_1=i1.value,i_2=i2.value
-    localStorage.setItem("Email",JSON.stringify(i_1))
-    localStorage.setItem("Password",JSON.stringify(i_2))
-    let overall_data={Username:`${i_1}`,Password:`${i_2}`}
-    fetch('/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-        },
-        
-        body: JSON.stringify( {overall_data} ),
-      
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          window.location.href = '/Home'; 
-        } else {
-          alert('Login failed');
-        }
-      })
-      .catch(error => console.error('Error:', error));
-    } 
-    }
-    }
-  })
-  .catch(error => console.error('Error fetching signed-in users:', error));
-    
-    }
-    if(b1.innerHTML=="LogIn")
-    {
-      let aaa=0
-      fetch('/signed-in-users')
-      .then(response => response.json())
-      .then(users => {
-      for(let i=0;i<users.length;i++)
-      {
-        if(users[i][0].Username==i1.value && users[i][0].Password==i2.value)
-        {
-          aaa=1
-          ut.innerHTML=`${aaa}`
-        }
-      }
-      if(aaa==0){
-            ut.innerHTML="Incorrect username or password!"
-            ut.style.display="block"
+        f.addEventListener("click", function() {
+          fp.style.display = "block";
+          f.style.display = "none";
+          i2.style.display = "none";
+          ut.style.display = "none";
+          for (let i = 0; i < a_l.length; i++) {
+            if (a_l[i].innerHTML == "Username*") {
+              a_l[i].innerHTML = "Enter username associated with your account.";
             }
-
-        
-
-  if(aaa==1)
-  {
-    alert("Login Successful")
-
-  if(b1.innerHTML=="LogIn")
-  {
-  if(i1.value!="" && i2.value!="" && aaa==1 )
-  {
-
-    i_1=i1.value,i_2=i2.value
-    localStorage.setItem("Email",JSON.stringify(i_1))
-    localStorage.setItem("Password",JSON.stringify(i_2))
-    let overall_data={Username:`${i_1}`,Password:`${i_2}`}
-
-    fetch('/Info', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-        },
-        
-        body: JSON.stringify( {overall_data} ),
-      
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          window.location.href = '/Home'; 
-        } else {
-          alert('Login failed');
-        }
-      })
-      .catch(error => console.error('Error:', error));
-  }
-  }
-  }
-    })
-.catch(error => console.error('Error fetching signed-in users:', error));
+            if (a_l[i].innerHTML == "Password*") {
+              a_l[i].style.display = "none";
+            }
+            b1.style.display = "none";
+            b2.style.display = "block";
+            m1.innerHTML = " Login Page";
+            m2.childNodes[0].textContent = "Back to";
+          }
+        });
     
-    }
-
+        b2.addEventListener("click", async function() {
+          let username__ = i1.value;
+          try {
+            let response = await fetch('/signed-in-users');
+            let users = await response.json();
+            let a = 0;
+            for (let i = 0; i < users.length; i++) {
+              if (users[i][0].Username == username__) {
+                a = 1;
+                fp.textContent = "Your password is " + users[i][0].Password;
+                window.location.href = '/Home';
+              }
+            }
+            if (a == 0) {
+              fp.textContent = "No account exists with such username!";
+            }
+          } catch (error) {
+            console.error('Error fetching signed-in users:', error);
+          }
+        });
     
-  
-  })
-    })
+        b1.addEventListener("click", async function() {
+          let aa = 0;
+          if (b1.innerHTML == "Create Account") {
+            try {
+              let response = await fetch('/signed-in-users');
+              let users = await response.json();
+              for (let i = 0; i < users.length; i++) {
+                if (users[i][0].Username == i1.value) {
+                  aa = 1;
+                  ut.style.display = "block";
+                  ut.innerHTML = `Username ${i1.value} =${users[i][0].Username}`;
+                }
+              }
+              if (aa == 0) {
+                if (i1.value != "" && i2.value != "") {
+                  ut.style.display = "none";
+                  let i_1 = i1.value, i_2 = i2.value;
+                  localStorage.setItem("Email", JSON.stringify(i_1));
+                  localStorage.setItem("Password", JSON.stringify(i_2));
+                  let overall_data = { Username: `${i_1}`, Password: `${i_2}` };
+                  let postResponse = await fetch('/index', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ overall_data }),
+                  });
+                  let data = await postResponse.json();
+                  if (data.success) {
+                    window.location.href = '/Home';
+                  } else {
+                    alert('Login failed');
+                  }
+                }
+              }
+            } catch (error) {
+              console.error('Error fetching signed-in users:', error);
+            }
+          }
+    
+          if (b1.innerHTML == "LogIn") {
+            try {
+              let response = await fetch('/signed-in-users');
+              let users = await response.json();
+              let aaa = 0;
+              for (let i = 0; i < users.length; i++) {
+                if (users[i][0].Username == i1.value && users[i][0].Password == i2.value) {
+                  aaa = 1;
+                  alert("Login Successful");
+                }
+              }
+              if (aaa == 0) {
+                ut.innerHTML = "Incorrect username or password!";
+                ut.style.display = "block";
+              } else {
+                if (i1.value != "" && i2.value != "") {
+                  let i_1 = i1.value, i_2 = i2.value;
+                  localStorage.setItem("Email", JSON.stringify(i_1));
+                  localStorage.setItem("Password", JSON.stringify(i_2));
+                  let overall_data = { Username: `${i_1}`, Password: `${i_2}` };
+                  let postResponse = await fetch('/index', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ overall_data }),
+                  });
+                  let data = await postResponse.json();
+                  if (data.success) {
+                    window.location.href = '/Home';
+                  } else {
+                    alert('Login failed');
+                  }
+                }
+              }
+            } catch (error) {
+              console.error('Error fetching signed-in users:', error);
+            }
+          }
+        });
+      });
     </script>
 </body> 
 </html>
