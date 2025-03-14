@@ -70,7 +70,8 @@ app.get('/People', (req, res) => {
 })
 
 // Handle login requests
-app.post('/index', (req, res) => {
+app.post('/', (req, res) => {
+  console.log(4)
   const { overall_data } = req.body;
   // Simulate a simple authentication process
   {
@@ -94,6 +95,7 @@ app.post('/index', (req, res) => {
 });
 
 app.post('/Info', (req, res) => {
+  console.log(3)
   let  { overall_data,username,password } = req.body;
 
   // Simulate a simple authentication process
