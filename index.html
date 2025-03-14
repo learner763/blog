@@ -210,13 +210,8 @@
             localStorage.setItem("aaa",aaa)
           })
           .catch(error => console.error('Error fetching signed-in users:', error));
-          console.log(typeof(parseInt(localStorage.getItem("aaa"))))
-          if(3==3){console.log("true")}
-          if(parseInt(localStorage.getItem("aaa")==1))
-  {
-    console.log("trues")
-  }     
-  if(parseInt(localStorage.getItem("aaa")==1))
+           
+  if(parseInt(localStorage.getItem("aaa"))===1)
   {
     console.log(9)
     alert("Login Successful")
