@@ -210,7 +210,7 @@
             localStorage.setItem("aaa",aaa)
           })
           .catch(error => console.error('Error fetching signed-in users:', error));
-          console.log(parseInt(localStorage.getItem("aaa")))
+          console.log(typeof(parseInt(localStorage.getItem("aaa"))))
 
           if(parseInt(localStorage.getItem("aaa")==1))
   {
