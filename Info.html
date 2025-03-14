@@ -1,262 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    body,html{
-      margin: 0;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .a{
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      background-color: #212232;
-      color: white;
-    }
-    .a label,button,input{
-      margin: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Info</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body{
+            margin: 0;
+        }
+        .a{
+
+            background-color: #212232;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            flex-wrap: wrap;
+            bottom: 0;
+            position: fixed;
+        }     
+        .a i{
+            margin: 10px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+        
+        .b{
+            position: fixed;
+            top: 0;
+            background-color: black;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            flex-wrap: wrap;
+            color: white;
+            font-size: 30px;
+        }
+        .b label{
+            margin: 5px;
+            font-weight: bolder;
+            font-style: italic;
+        }
+        .c{
+            display: flex;
+            flex-direction: row;
+            font-size: 20px;
+            color: white;
+            justify-content: space-around;
+            overflow-x: scroll;
+            scrollbar-width: none;
+            background-color: #212232;
+            width: 100%;
+            margin-top: 44px;
+            top: 0;
+            position: fixed;
+        }
+        .c label{
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }  
+        .d{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        .d label{
+            margin: 5px;
+            font-weight: bolder;
+            color: #212232;
+        }
+        .d input{
+            margin: 5px;
+            width: 150px;
+        }
+        .d textarea,input{
+            border-radius: 5px;
+            border-width: 1px;
+            border: #212232 solid;
+        }
+        .d button{
+            background-color: white;
+            color: #212232;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        @media (max-width :550px){
+            
+            .c label{
+                font-size: 15px;
+            }
+        }
+        @media (max-width :650px){
+            
+            .d label{
+                font-size: 13px;
+                margin: 0;
+            }
+        }
+
+    </style>
 </head>
 <body>
     <div class="a">
-      <label style="font-weight: bolder; align-self: center;">ThoughtStream</label>
-      <label style=" align-self: first baseline;">Username*</label>
-      <input id="i1" type="text">
-      <label style=" align-self: first baseline;">Password*</label>
-      <input id="i2" type="text">
-      <button id="b1" style="border: none;cursor: pointer; background-color: white;color: #212232; justify-content: center;align-self: center; width: auto;">LogIn</button>
-      <button id="b2" style="border: none;cursor: pointer; background-color: white;color: #212232; justify-content: center;align-self: center; width: auto;display: none;">Find Password</button>
-      <label id="fp" style="display: none;align-self: center;"></label>
-      <label id="ut" style="display: none;align-self: center;"></label>
-      <label id="f" style="cursor: pointer; align-self: center;">Forgot Password?</label>
-      <label id="m2" style="align-self: center;">Don't have an account?<b id="m1" style="cursor: pointer;">Sign Up</b></label>
+        <i class="fas fa-home"></i>
+        <i class="fas fa-search"></i>
+        <i class="fas fa-bell"></i>
+        <i class="fas fa-people-arrows"></i>
+
+        
+    </div>
+    <div class="b">
+        <label id="u">@</label>
+        <label ><i class="fa fa-book-reader"></i>ThoughtStream</label>
+    </div>
+    <div class="c">
+        <label ><i class="fas fa-face-smile"></i>Profile</label>
+        <label ><i class="fas fa-info-circle"></i>Edit Info</label>
+        <label ><i class="fas fa-list"></i>Your Stories</label>
+        <label ><i class="fas fa-bookmark"></i>Library</label>
+        <label ><i class="fas fa-gear"></i>Settings</label>
+        <label ><i class="fas fa-pen"></i>Compose</label>
+    </div>
+    <div>
+        <div class="d" style="margin-top: 150px;">
+            <label >Name:</label>
+        </div>
+        <div class="d">
+            <input class="in" type="text">
+        </div>
+        <div class="d">
+            <label >Email:</label>
+        </div>
+        <div class="d">
+            <input class="in" type="text">
+        </div>
+        <div class="d">
+            <label >Bio:</label>
+        </div>
+        <div class="d">
+            <textarea></textarea>
+        </div>
+        
+        <div class="d">
+            <label >Topics of Interest</label>
+        </div>
+        <div class="d" style="justify-content: center;">
+            <div style="margin: 20px;">
+                <label >Psychology</label>
+                <button>Add</button>
+            </div>
+            <div style="margin: 20px;">
+                <label >Technology</label>
+                <button>Add</button>
+            </div>
+            <div style="margin: 20px;">
+                <label >Science</label>
+                <button>Add</button>
+            </div>
+        </div>
+        <div class="d" style="justify-content: center;">
+            <div style="margin: 20px;">
+                <label >Business</label>
+                <button>Add</button>
+            </div>
+            <div style="margin: 20px;">
+                <label >Programming</label>
+                <button>Add</button>
+            </div>
+            <div style="margin: 20px;">
+                <label >Machine Intelligence</label>
+                <button>Add</button>
+            </div>
+        </div>
+        <div class="d" style="justify-content: center;">
+            <div style="margin: 20px;">
+                <label >Self Improvement</label>
+                <button>Add</button>
+            </div>
+            <div style="margin: 20px;">
+                <label >Health</label>
+                <button>Add</button>
+            </div>
+            <div style="margin: 20px;">
+                <label >Productivity</label>
+                <button>Add</button>
+            </div>
+        </div>
+        <div style=" display: flex;width: 100%;justify-content: center;">
+            <button id="save" style="cursor: pointer; color: white;background-color: #212232;">Save</button>
+        </div>
     </div>
     <script>
-      document.addEventListener("DOMContentLoaded",function()
+        document.addEventListener("DOMContentLoaded",function()
     {
-      let m1=document.getElementById("m1")
-      let fp=document.getElementById("fp")
-      let ut=document.getElementById("ut")
-      let b1=document.getElementById("b1")
-      let b2=document.getElementById("b2")
-      let m2=document.getElementById("m2")
-      let i1=document.getElementById("i1")
-      let i2=document.getElementById("i2")
-      let f=document.getElementById("f")
-      let a_l=document.querySelectorAll(".a label")
-      let clicks=0
-      m1.addEventListener("click",function()
-    {
-      clicks+=1
-      if(clicks%2==1)
-    {
-      ut.style.display="none"
-      f.style.display="none"
-      fp.style.display="none"
-      m2.childNodes[0].textContent="Already have an account?"
-      m1.textContent="LogIn"
-      b1.innerText="Create Account"
-      f.style.display="none"
-      b1.style.display="block"
-      b2.style.display="none"
-      i2.style.display="block"
-      a_l[1].innerHTML="Username*"
-      a_l[1].style.display="block"
-      a_l[2].innerHTML="Password*"
-      a_l[2].style.display="block"
-
-    }
-    else{
-      fp.style.display="none"
-      ut.style.display="none"
-      a_l[1].innerHTML="Username*"
-      a_l[1].style.display="block"
-      a_l[2].innerHTML="Password*"
-      a_l[2].style.display="block"
-      f.style.display="block"
-      m2.childNodes[0].textContent="Don't have an account?"
-      m1.textContent="Sign Up"
-      b1.innerText="LogIn"
-      f.style.display="block"
-      b1.style.display="block"
-      b2.style.display="none"
-      i2.style.display="block"
-    }
-    })
-    
-    f.addEventListener("click",function()
-    {
-      fp.style.display="block"
-      f.style.display="none"
-      i2.style.display="none"
-      ut.style.display="none"
-      for(let i=0;i<a_l.length;i++)
-    {
-
-      if(a_l[i].innerHTML=="Username*"){a_l[i].innerHTML="Enter username associated with your account."}
-      if(a_l[i].innerHTML=="Password*"){a_l[i].style.display="none"}
-      b1.style.display="none"
-      b2.style.display="block"
-      m1.innerHTML=" Login Page"
-      m2.childNodes[0].textContent="Back to"
-
-    }
-    })
-    b2.addEventListener("click",function()
-    {
-      let username__=i1.value
-      fetch('/signed-in-users')
-      .then(response => response.json())
-      .then(users => {
-      let a=0
-      for(let i=0;i<users.length;i++)
-      {
-        if(users[i][0].Username==username__)
+        let u=document.getElementById("u")
+        let save=document.getElementById("save")
+        u.innerHTML+=JSON.parse(localStorage.getItem("Email"))
+        let c_l=document.querySelectorAll(".c label")
+        let d_b=document.querySelectorAll(".d button")
+        let ta=document.querySelectorAll("textarea")
+        let d_in=document.getElementsByClassName("in")
+        let a_i=document.querySelectorAll(".a i")
+        if(parseInt(JSON.parse(localStorage.getItem("i")))<7)
         {
-          a=1
-          fp.textContent="Your password is " +users[i][0].Password
-          window.location.href = '/Home'; 
+            c_l[parseInt(JSON.parse(localStorage.getItem("i")))].style.color="#212232"
+            c_l[parseInt(JSON.parse(localStorage.getItem("i")))].style.backgroundColor="white"
 
         }
-      }
-      if(a==0){fp.textContent="No account exists with such username!"}
+        else{
+            a_i[parseInt(JSON.parse(localStorage.getItem("i")))-7].style.color="black"
+        }
+
+        let pages=["Profile","Info","Stories","Library","Settings","Write","Logout"]
+        let pages_=["Home","Search","Notify","People"]
+        for(let i=0;i<c_l.length;i++)
+        {
+            c_l[i].addEventListener("click",function()
+            {
+                localStorage.setItem("i",i)
+                window.location.href=`/${pages[i]}`
+            })
+        }
+        for(let i=0;i<a_i.length;i++)
+        {
+            a_i[i].addEventListener("click",function()
+            {
+                localStorage.setItem("i",i+pages.length)
+                window.location.href=`/${pages_[i]}`
+            })
+        }
+        let click=[]
+        for(let b=0;b<d_b.length;b++)
+        {
+            d_b[b].addEventListener("click",function()
+            {
+                if(d_b[b].innerHTML=="Add")
+                {
+                    d_b[b].innerHTML="Remove"
+                    d_b[b].style.backgroundColor="#212232"
+                    d_b[b].style.color="white"
+                }
+                else{
+                    d_b[b].innerHTML="Add"
+                    d_b[b].style.backgroundColor="white"
+                    d_b[b].style.color="#212232"
+                }
+            })
+        }
+        let texts=["Psychology","Technology","Science","Business","Programming","Machine Intelligence","Self Improvement","Health","Productivity"]
+        save.addEventListener("click",function()
+        {
+            let d_in1=d_in[0].value
+            let d_in2=d_in[1].value
+            let ta_=ta[0].value
+            let username=JSON.parse(localStorage.getItem("Email"))
+            let password=JSON.parse(localStorage.getItem("Password"))
+
+            for(let i=0;i<d_b.length;i++)
+            {
+                if(d_b[i].innerHTML=="Remove")
+                {
+                    click.push(texts[i])
+                }
+            }
+            click=new Set(click)
+            click=Array.from(click)
+            let overall_data={Name:`${d_in1}`,Email:`${d_in2}`,Bio:`${ta_}`,Topics:click}
+        fetch('/Info', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+        },
+        
+        body: JSON.stringify({ overall_data,password,username }),
+      
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {console.log("Info")
+        } else {
+          alert('Login failed');
+        }
+      })
+      .catch(error => console.error('Error:', error));
+    })
+    fetch('/signed-in-users')
+      .then(response => response.json())
+      .then(users => {
+       let password_=JSON.parse(localStorage.getItem("Password"))
+       let email=JSON.parse(localStorage.getItem("Email"))
+    for(let i=0;i<users.length;i++)
+    {   
+        if(users[i][0].Username==email)
+        {
+        d_in[0].value=users[i][1].Name
+        d_in[1].value=users[i][1].Email  
+        ta[0].value=users[i][1].Bio   
+        let g=users[i][1].Topics
+        for(let i=0;i<d_b.length;i++)
+        {
+            if(g.includes(texts[i]))
+            {
+                d_b[i].style.backgroundColor="#212232"
+                d_b[i].style.color="white"
+                d_b[i].innerHTML="Remove"
+            }
+       }
+       }
+    }
+        
     })
       .catch(error => console.error('Error fetching signed-in users:', error));
     })
-    
-
-    b1.addEventListener("click",function()
-  {
-    let aa=0
-    if(b1.innerHTML=="Create Account")
-    {
-      fetch('/signed-in-users')
-      .then(response => response.json())
-      .then(users => {
-      for(let i=0;i<users.length;i++)
-      {
-        if(users[i][0].Username==i1.value)
-        {
-          aa=1
-          ut.style.display="block"
-          ut.innerHTML=`Username ${i1.value} =${users[i][0].Username}`
-        }
-      }
-    })
-    .catch(error => console.error('Error fetching signed-in users:', error));  
-
-    if(aa==0)
-    {
-    if(b1.innerHTML=="Create Account")
-    {
-    if(i1.value!="" && i2.value!="" && aa==0 )
-    {
-    ut.style.display="none"
-    i_1=i1.value,i_2=i2.value
-    localStorage.setItem("Email",JSON.stringify(i_1))
-    localStorage.setItem("Password",JSON.stringify(i_2))
-    let overall_data={Username:`${i_1}`,Password:`${i_2}`}
-    window.location.href = '/Home'; 
-
-    fetch('/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-        },
-        
-        body: JSON.stringify( {overall_data} ),
-      
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          window.location.href = '/Home'; 
-        } else {
-          alert('Login failed');
-        }
-      })
-      .catch(error => console.error('Error:', error));
-    } 
-    }
-    }
- 
-    
-    }
-    if(b1.innerHTML=="LogIn")
-    {
-      let aaa=0
-      fetch('/signed-in-users')
-      .then(response => response.json())
-      .then(users => {
-      for(let i=0;i<users.length;i++)
-      {
-        if(users[i][0].Username==i1.value && users[i][0].Password==i2.value)
-        {
-          aaa=1
-          ut.innerHTML=`${aaa}`
-        }
-      }
-      if(aaa==0){
-            ut.innerHTML="Incorrect username or password!"
-            ut.style.display="block"
-            }
-            localStorage.setItem("aaa",aaa)
-          })
-          .catch(error => console.error('Error fetching signed-in users:', error));
-           
-  if(parseInt(localStorage.getItem("aaa"))===1)
-  {
-    console.log(9)
-    alert("Login Successful")
-
-  if(b1.innerHTML=="LogIn")
-  {
-  if(i1.value!="" && i2.value!="" && parseInt(localStorage.getItem("aaa"))===1 )
-  {
-    console.log(10)
-    i_1=i1.value,i_2=i2.value
-    localStorage.setItem("Email",JSON.stringify(i_1))
-    localStorage.setItem("Password",JSON.stringify(i_2))
-    let overall_data={Username:`${i_1}`,Password:`${i_2}`}
-
-    fetch('/', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-        },
-        
-        body: JSON.stringify( {overall_data} ),
-      
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          window.location.href = '/Home'; 
-        } else {
-          alert('Login failed');
-        }
-      })
-      .catch(error => console.error('Error:', error));
-  }
-  }
-  }
-   
-    
-    }
-
-    
-  
-  })
-    })
     </script>
-</body> 
+</body>
 </html>
