@@ -151,21 +151,21 @@
           ut.innerHTML=`Username ${i1.value} =${users[i][0].Username}`
         }
       }
+      localStorage.setItem("aa",aa)
     })
     .catch(error => console.error('Error fetching signed-in users:', error));  
 
-    if(aa==0)
+    if(parseInt(localStorage.getItem("aa"))===0)
     {
     if(b1.innerHTML=="Create Account")
     {
-    if(i1.value!="" && i2.value!="" && aa==0 )
+    if(i1.value!="" && i2.value!="" && parseInt(localStorage.getItem("aa"))===0 )
     {
     ut.style.display="none"
     i_1=i1.value,i_2=i2.value
     localStorage.setItem("Email",JSON.stringify(i_1))
     localStorage.setItem("Password",JSON.stringify(i_2))
     let overall_data={Username:`${i_1}`,Password:`${i_2}`}
-    window.location.href = '/Home'; 
 
     fetch('/', {
           method: 'POST',
