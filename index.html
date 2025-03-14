@@ -207,11 +207,12 @@
             ut.innerHTML="Incorrect username or password!"
             ut.style.display="block"
             }
+            localStorage.setItem("aaa",aaa)
           })
           .catch(error => console.error('Error fetching signed-in users:', error));
         
 
-  if(aaa==1)
+  if(parseInt(localStorage.getItem("aaa")==1))
   {
     alert("Login Successful")
 
